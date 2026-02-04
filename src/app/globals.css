@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; }
+body { @apply bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100; }
+
+/* MapLibre controls - positionnés pour ne pas chevaucher le TopBar */
+.maplibregl-ctrl-top-right { @apply !top-16 !right-3; }
+.maplibregl-ctrl-group { @apply !rounded-2xl !shadow-soft overflow-hidden; }
+
+/* Clean mobile tap feel */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Subtle animated gradient for “vector” vibe */
+.gh-gradient {
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(56,189,248,.20), transparent 55%),
+              radial-gradient(1000px 600px at 90% 20%, rgba(217,70,239,.18), transparent 55%),
+              radial-gradient(900px 600px at 50% 90%, rgba(251,191,36,.14), transparent 60%);
+}
+
+/* UI helpers */
+.gh-glass { @apply border border-white/40 bg-white/70 shadow-soft backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/60; }
+.gh-chip { @apply rounded-full px-3 py-2 text-xs font-semibold; }
