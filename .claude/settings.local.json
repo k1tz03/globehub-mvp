@@ -8,7 +8,12 @@
       "Bash(timeout 15 npm run dev:*)",
       "Bash(ls -la \"C:\\\\Users\\\\julien.ray\\\\Globup\\\\src\\\\app\"\" 2>/dev/null | head -20 || echo \"Directory search \")",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git config:*)",
+      "Bash(git branch:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit - GlobeHub avec conformité RGPD/DSA\n\nFeatures:\n- Réseau social géolocalisé sur globe 3D\n- Panel admin complet \\(modération, analytics, automatisation\\)\n- Conformité RGPD: cookies, export données, suppression compte\n- Conformité DSA: transparence algo, formulaire d''appel, mentions légales\n- Système de groupes et messagerie\n- Notifications temps réel\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
