@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCookieConsentStore, ConsentCategory } from '@/lib/useCookieConsentStore';
 
 // Inline SVG icons
@@ -101,11 +101,30 @@ export function CookieBanner() {
   } = useCookieConsentStore();
 
   const [preferences, setPreferences] = useState({
-    functional: consent?.functional ?? false,
-    analytics: consent?.analytics ?? false,
-    marketing: consent?.marketing ?? false,
+    functional: false,
+    analytics: false,
+    marketing: false,
   });
 
+  // Hydration fix: only render after mount
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (consent) {
+      setPreferences({
+        functional: consent.functional ?? false,
+        analytics: consent.analytics ?? false,
+        marketing: consent.marketing ?? false,
+      });
+    }
+  }, [consent]);
+
+  // Don't render on server or before hydration
+  if (!mounted) return null;
   if (!showBanner && !showPreferences) return null;
 
   const handleSavePreferences = () => {
