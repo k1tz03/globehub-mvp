@@ -99,7 +99,7 @@ export function GlobalFooter() {
         <div className="border-t border-neutral-200 dark:border-neutral-700 mt-8 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-neutral-500 dark:text-neutral-400">
             <p>
-              © {new Date().getFullYear()} GlobeHub SAS. Tous droits réservés.
+              © 2025 GlobeHub SAS. Tous droits réservés.
             </p>
             <p>
               Hébergé en Union Européenne | RCS Paris B 123 456 789

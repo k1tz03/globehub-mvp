@@ -307,11 +307,7 @@ export default function LegalPage() {
 
         {/* Date de mise à jour */}
         <div className="text-center text-neutral-500 dark:text-neutral-400 text-sm py-4">
-          Dernière mise à jour : {new Date().toLocaleDateString('fr-FR', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          })}
+          Dernière mise à jour : 4 février 2025
         </div>
       </main>
     </div>
