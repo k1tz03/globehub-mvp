@@ -364,7 +364,7 @@ export default function AnimatedBackground({ event }: AnimatedBackgroundProps) {
               className="absolute text-2xl"
               style={{
                 left: `${10 + i * 20}%`,
-                top: `${60 + Math.random() * 20}%`,
+                top: `${60 + i * 4}%`,
                 animation: `cracker 0.5s ease-out infinite`,
                 animationDelay: `${i * 0.2}s`,
               }}

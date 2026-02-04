@@ -109,10 +109,29 @@ interface PostSuccessOverlayProps {
   onClose: () => void;
 }
 
+// Générer les données de particules côté client uniquement
+function generateParticleData() {
+  const emojis = ["✨", "🎉", "⭐", "💫", "🌟"];
+  return [...Array(30)].map((_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    top: Math.random() * 100,
+    delay: Math.random() * 2,
+    duration: 2 + Math.random() * 2,
+    emoji: emojis[Math.floor(Math.random() * emojis.length)],
+  }));
+}
+
 export function PostSuccessOverlay({ postId, views, onClose }: PostSuccessOverlayProps) {
   const [stage, setStage] = useState(0);
   const displayViews = useAnimatedCounter(views, 2000);
-  
+  const [particles, setParticles] = useState<ReturnType<typeof generateParticleData>>([]);
+
+  // Générer les particules uniquement côté client
+  useEffect(() => {
+    setParticles(generateParticleData());
+  }, []);
+
   useEffect(() => {
     const timers = [
       setTimeout(() => setStage(1), 500),
@@ -183,20 +202,20 @@ export function PostSuccessOverlay({ postId, views, onClose }: PostSuccessOverla
         </p>
         
         {/* Particules de célébration */}
-        {stage >= 1 && (
+        {stage >= 1 && particles.length > 0 && (
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {[...Array(30)].map((_, i) => (
+            {particles.map((p) => (
               <span
-                key={i}
+                key={p.id}
                 className="absolute animate-float text-2xl"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 2}s`,
-                  animationDuration: `${2 + Math.random() * 2}s`,
+                  left: `${p.left}%`,
+                  top: `${p.top}%`,
+                  animationDelay: `${p.delay}s`,
+                  animationDuration: `${p.duration}s`,
                 }}
               >
-                {["✨", "🎉", "⭐", "💫", "🌟"][Math.floor(Math.random() * 5)]}
+                {p.emoji}
               </span>
             ))}
           </div>

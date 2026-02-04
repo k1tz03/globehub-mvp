@@ -150,9 +150,26 @@ interface PostSuccessOverlayProps {
   onClose: () => void;
 }
 
+// Générer les données de confetti côté client uniquement
+function generateConfettiData() {
+  return [...Array(50)].map((_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    delay: Math.random() * 2,
+    duration: 2 + Math.random() * 2,
+    color: ['#f0abfc', '#fbbf24', '#34d399', '#60a5fa', '#f472b6'][Math.floor(Math.random() * 5)],
+  }));
+}
+
 export function PostSuccessOverlay({ views, onClose }: PostSuccessOverlayProps) {
   const [displayViews, setDisplayViews] = useState(0);
   const [stage, setStage] = useState(0);
+  const [confetti, setConfetti] = useState<ReturnType<typeof generateConfettiData>>([]);
+
+  // Générer les confettis uniquement côté client
+  useEffect(() => {
+    setConfetti(generateConfettiData());
+  }, []);
 
   useEffect(() => {
     // Animation progressive
@@ -182,21 +199,21 @@ export function PostSuccessOverlay({ views, onClose }: PostSuccessOverlayProps) 
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
       {/* Confettis */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        {[...Array(50)].map((_, i) => (
+        {confetti.map((c) => (
           <div
-            key={i}
+            key={c.id}
             className="absolute animate-confetti"
             style={{
-              left: `${Math.random() * 100}%`,
+              left: `${c.left}%`,
               top: `-20px`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: `${2 + Math.random() * 2}s`,
+              animationDelay: `${c.delay}s`,
+              animationDuration: `${c.duration}s`,
             }}
           >
-            <span 
+            <span
               className="block h-3 w-3 rotate-45"
               style={{
-                backgroundColor: ['#f0abfc', '#fbbf24', '#34d399', '#60a5fa', '#f472b6'][Math.floor(Math.random() * 5)],
+                backgroundColor: c.color,
               }}
             />
           </div>
